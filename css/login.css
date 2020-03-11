@@ -1,7 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #17a2b8;
+    padding-bottom: 100vh;
+    /* background-image: url("../img/imagem.jpg"); */
+    background: rgb(41, 40, 40);
+    background-size: cover;
     height: 100vh;
 }
 
@@ -10,7 +13,7 @@ body {
     max-width: 600px;
     height: 320px;
     border: 1px solid #9C9C9C;
-    background-color: #EAEAEA;
+    background-color: white;
 }
 
 #login .container #login-row #login-column #login-box #login-form {
@@ -20,3 +23,23 @@ body {
 #login .container #login-row #login-column #login-box #login-form #register-link {
     margin-top: -85px;
 }
+
+.text-info {
+    color: rgb(44, 44, 44) !important;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #0AD2DF;
+    border-color: #0AD2DF;
+    padding: 1vh 2vh 1vh 2vh;
+    font-weight: bold;
+}
+
+
+/*
+#login h3.text-center.text-white.pt-5 
+    color: white;
+    font-size: 2.5em;
+
+*/

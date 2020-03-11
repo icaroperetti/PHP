@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+if(! $_SESSION['logado']){
+    $_SESSION['flash']['error'] = "Você precisa estar logado";
+    header("location: sign_in.php");
+    exit(0);
+}
+
+if(isset($_SESSION['flash']['error'])){
+    $error = $_SESSION['flash']['error'];
+    $message = $_SESSION['flash']['message'];
+    unset($_SESSION['flash']);
+}
+
 require_once("src/utils/ConnectionFactory.php");
 
 $con = ConnectionFactory::getConnection();
@@ -51,18 +65,23 @@ $stmt->execute();
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+           <a href="sign_out.php" class="btn alert-warning">Sair</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-4">
+            <?php if(isset($error)): ?>
+                <p class= "alert alert-danger"> <?= $error ?></p>
+            <?php endif ?>
+
+            <?php if(isset($message)) : ?>
+                <p class="alert alert-success"> <?= $message ?></p>
+            <?php endif ?>
+
                 <h1>
-                    Cadastros
+                    Cadastros Realizados
                     <a href="formulario.php" class="btn btn-success float-right">Novo Usuário</a>
                 </h1>
                 <hr />

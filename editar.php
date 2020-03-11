@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-echo $id;
+//echo $id;
 
 $host = "localhost";
 $db = "cadastro";
@@ -127,7 +127,7 @@ $row = $stmt->fetch(PDO::FETCH_OBJ);
                     <div class="form-group col-md-12">
                         <label for="endereco" class="col-sm-12 col-form-label">Endereço:</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="endereco" name="user[endereco]" value="Bairro SSSSS. Videira - SC">
+                            <input type="text" class="form-control" id="endereco" name="user[endereco]" value="<?= $row->endereco ?>s">
                             <input type="hidden" name="user[id]" value="<?= $row->id ?>">
                         </div>
                     </div>

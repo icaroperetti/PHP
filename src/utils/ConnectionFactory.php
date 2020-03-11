@@ -9,8 +9,8 @@
         public static function getConnection(){
 
             if(is_null(self::$con)){
-               self:: $con = new PDO("mysql:host=" .self::$host . ";dbname=" .self::$db, self::$db_user,
-               self::$db_password);
+               self:: $con = new PDO("mysql:host=" .self::$host . ";dbname=" .self::$db, 
+               self::$db_user, self::$db_password);
 
                 return self::$con;
             }
@@ -19,6 +19,6 @@
 
     }
 
-    print_r(ConnectionFactory::getConnection());
+    //print_r(ConnectionFactory::getConnection());
 
 ?>
