@@ -1,20 +1,17 @@
 <?php
-session_start();
+    session_start();
 
-require_once("src/utils/ConnectionFactory.php");
+    // if(! $_SESSION['logado']){
+    //     $_SESSION['flash']['error'] = "Você precisa estar logado";
+    //     header("location: sign_in.php");
+    //     exit(0);
+    // }
 
-$id = $_GET['id'];
-//echo $id;
-
-$con = ConnectionFactory::getConnection();
-
-$stmt = $con->prepare("SELECT * FROM users WHERE id = :id");
-$stmt->bindParam(':id', $id);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_OBJ);
-
-
-
+    if(isset($_SESSION['flash'])) {
+        $error = isset($_SESSION['flash']['error']) ? $_SESSION['flash']['error'] : null;
+        $message = isset($_SESSION['flash']['message']) ? $_SESSION['flash']['message'] : null;
+        unset($_SESSION['flash']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +21,7 @@ $row = $stmt->fetch(PDO::FETCH_OBJ);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar</title>
+    <title>Formulário</title>
     <link rel="stylesheet" href="css/bootstrap-reboot.css" />
     <link rel="stylesheet" href="css/bootstrap-grid.css" />
     <link rel="stylesheet" href="css/bootstrap.css" />
@@ -69,6 +66,9 @@ $row = $stmt->fetch(PDO::FETCH_OBJ);
     </nav>
 
     <div class="container">
+        <?php if(isset($error)) : ?>   
+            <p class="alert alert-danger"> <?= $error ?> </p>
+        <?php endif ?> 
         <div class="row">
             <div class="col-md-12 mt-4">
                 <h1>Formulário de Cadastro</h1>
@@ -76,61 +76,60 @@ $row = $stmt->fetch(PDO::FETCH_OBJ);
             </div>
 
 
-            <form action="update.php" method="POST">
+            <form action="registrar.php" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail3" class="col-sm-6 col-form-label">Email:</label>
                         <div class="col-sm-12">
-                            <input type="email" class="form-control" id="inputEmail3" name="user[email]" value="<?= $row->email ?>">
+                            <input type="email" class="form-control" id="inputEmail3" name="user[email]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="inputPassword3" class="col-sm-6 col-form-label disabled"  >Password:</label>
+                        <label for="inputPassword3" class="col-sm-6 col-form-label">Password:</label>
                         <div class="col-sm-12">
-                            <input type="password" class="form-control disabled" id="inputPassword3" name="user[password]" value="<?= $row->senha ?>">
+                            <input type="password" class="form-control" id="inputPassword3" name="user[password]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="nome" class="col-sm-6 col-form-label">Nome Completo:</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="nome" name="user[nome_completo]" value="<?= $row->nome ?>">
+                            <input type="text" class="form-control" id="nome" name="user[nome_completo]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="cpf" class="col-sm-6 col-form-label">CPF:</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="cpf" name="user[cpf]" value="<?= $row->cpf ?>">
+                            <input type="text" class="form-control" id="cpf" name="user[cpf]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="rg" class="col-sm-6 col-form-label">RG:</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="rg" name="user[rg]" value="<?= $row->rg ?>">
+                            <input type="text" class="form-control" id="rg" name="user[rg]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="data_nascimento" class="col-sm-6 col-form-label">Data Nascimento:</label>
                         <div class="col-sm-12">
-                            <input type="date" class="form-control" id="data_nascimento" name="user[data_nascimento]" value="<?= $row->data_nascimento ?>">
+                            <input type="date" class="form-control" id="data_nascimento" name="user[data_nascimento]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-12">
                         <label for="endereco" class="col-sm-12 col-form-label">Endereço:</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="endereco" name="user[endereco]" value="<?= $row->endereco ?>">
-                            <input type="hidden" name="user[id]" value="<?= $row->id ?>">
+                            <input type="text" class="form-control" id="endereco" name="user[endereco]">
                         </div>
                     </div>
 
                     <div class="form-group col-md-12">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary" name="cadastrar">Cadastrar</button>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -142,7 +141,7 @@ $row = $stmt->fetch(PDO::FETCH_OBJ);
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.js"></script>
-    <script src="bootstrap.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 
 </html>

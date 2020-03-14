@@ -54,7 +54,7 @@
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-                            <a href="#" class="text-info float-right" >Register here</a>
+                            <a href="registro_front.php" class="text-info float-right" >Register here</a>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                             </div>
         
@@ -65,7 +65,6 @@
         </div>
     </div>
 </body>
-
 </html>
 
 <!------ Include the above in your HEAD tag ---------->
