@@ -1,4 +1,5 @@
 <?php
+
     require_once("src/utils/ConnectionFactory.php");
 
     $user = $_REQUEST['user'];

@@ -65,7 +65,7 @@ $stmt->execute();
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-           <a href="sign_out.php" class="btn alert-warning">Sair</a>
+           <a href="sign_out.php" class="btn-lg alert-danger">Sair</a>
         </div>
     </nav>
 
